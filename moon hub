@@ -1,0 +1,100 @@
+local Rayfield = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Rayfield/main/source"))()
+
+local correctKey = "hellocun2025"
+
+local KeyUI = Rayfield:CreateWindow({
+    Name = "Chào mừng đến với script của tôi",
+    LoadingTitle = "Moon Hub",
+    LoadingSubtitle = "Vui lòng nhập key để tiếp tục",
+    ConfigurationSaving = {
+        Enabled = false
+    },
+    Discord = {
+        Enabled = false
+    },
+    KeySystem = false
+})
+
+Rayfield:ChangeTheme({
+    Background = Color3.fromRGB(230, 255, 230),
+    Topbar = Color3.fromRGB(34, 139, 34),
+    Text = Color3.fromRGB(0, 0, 0),
+    ElementBackground = Color3.fromRGB(200, 255, 200),
+    ElementStroke = Color3.fromRGB(34, 139, 34),
+    SectionBackground = Color3.fromRGB(220, 255, 220),
+    Divider = Color3.fromRGB(0, 128, 0),
+    Slider = Color3.fromRGB(50, 205, 50),
+    Toggle = Color3.fromRGB(0, 200, 0),
+    Button = Color3.fromRGB(0, 200, 0),
+    Dropdown = Color3.fromRGB(144, 238, 144),
+    Input = Color3.fromRGB(152, 251, 152),
+    Notification = Color3.fromRGB(60, 179, 113)
+})
+
+local KeyTab = KeyUI:CreateTab("Key System")
+
+local userKey = ""
+
+KeyTab:CreateInput({
+    Name = "Nhập key tại đây",
+    PlaceholderText = "VD: hellocun2025",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(Value)
+        userKey = Value
+    end
+})
+
+KeyTab:CreateButton({
+    Name = "Dán từ Clipboard",
+    Callback = function()
+        local clipboard = (syn and syn.clipboard.get or getclipboard or setclipboard)()
+        if clipboard then
+            userKey = clipboard
+            Rayfield:Notify({
+                Title = "Đã dán key",
+                Content = "Đã nhập key từ clipboard!",
+                Duration = 3
+            })
+        else
+            Rayfield:Notify({
+                Title = "Clipboard không hỗ trợ",
+                Content = "Không thể lấy key từ clipboard.",
+                Duration = 3
+            })
+        end
+    end
+})
+
+KeyTab:CreateButton({
+    Name = "Submit Key",
+    Callback = function()
+        if userKey == correctKey then
+            Rayfield:Notify({
+                Title = "Key hợp lệ!",
+                Content = "Đang mở GUI chính...",
+                Duration = 3
+            })
+            wait(1.5)
+            loadstring(game:HttpGet("https://your-website.com/yourgui.lua"))()
+        else
+            Rayfield:Notify({
+                Title = "Key sai!",
+                Content = "Vui lòng kiểm tra lại key.",
+                Duration = 3
+            })
+        end
+    end
+})
+
+KeyTab:CreateParagraph({
+    Title = "Hỗ trợ & Key Link",
+    Content = [[
+[Tham gia Discord](https://discord.gg/g9UwtCy94g)  
+[Nhận Key tại đây](https://link-hub.net/1393997/cuKUMe9MHk8s)
+    ]]
+})
+
+KeyTab:CreateParagraph({
+    Title = "Thông báo",
+    Content = "Chế độ không cần key sẽ mở vào Thứ 7 & Chủ Nhật!"
+})
